@@ -40,6 +40,7 @@ import matplotlib.pyplot as plt
 #plt.ioff() # to disable interactive mode
 import numpy as np
 import types
+from arrays import DataArray
 
 
 
@@ -242,8 +243,17 @@ class Graph:
 
 def quickGraph(data_or_function, xmin = 'auto', xmax = 'auto'):
     """Quickly plot data_or_function in one step. Labels and scales cannot be changed."""
-    curve = Curve(data_or_function, label='auto', color='r')
-    G = Graph(curve, xmin = xmin, xmax = xmax)
+    if isinstance(data_or_function, DataArray):
+        x_unit = data_or_function.X_unit.unit
+        y_unit = data_or_function.Y_unit.unit
+        data_or_function = (data_or_function.X_without_units, data_or_function.Y_without_units)
+        curve = Curve(data_or_function, label='auto', color='r', marker = '*-')
+        G = Graph(curve, xmin = xmin, xmax = xmax)
+        G.xlabel = 'X ({unit})'.format(unit = x_unit)
+        G.ylabel = 'Y ({unit})'.format(unit = y_unit)
+    else:
+        curve = Curve(data_or_function, label='auto', color='r')
+        G = Graph(curve, xmin = xmin, xmax = xmax)
     G.show()
     return G
 

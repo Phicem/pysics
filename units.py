@@ -10,6 +10,7 @@
 # TODO: unit testing...
 # TODO: clean up units namespace of find an other way to import all units in current namespace
 # TODO: a_quantity.symbol returns surprising results when it's not a basic unit
+# TODO: add a 'favorite' unit for a quantity?
 
 """ This module implements a basic physical units system.
 SI units [ 'm', 's', 'kg', 'A', 'K', 'cd','mol'] as well as 'rad' and all 
@@ -53,7 +54,7 @@ Defining new units:
 
 Playing with numpy arrays:
     >> import numpy as np
-    >> a = np.array([1,2,3]) * kg
+    >> a = np.array([1,2,3]) * km
     >> 2*a
         [ 2000.  4000.  6000.]  m [PHYS]
 
@@ -441,3 +442,8 @@ def defineSubmultiples(namespace_dict, main_unit):
 for main_unit in list_of_basic_SI_units: # I'm hoping there is no name conflict!
     defineSubmultiples(__mydict__, main_unit)
 
+# A few not-SI but convenient units
+ft = 0.3048*m
+NM = 1.852*km
+yard = 0.9144*m
+inch = 2.54*cm # not 'in' because it is a reserved word in python

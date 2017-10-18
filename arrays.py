@@ -181,5 +181,18 @@ class DataArray:
     def __abs__(self):
         return DataArray(self.X_with_units, abs(self.Y_without_units*self.Y_unit))
 
+    def __call__(self, x):
+        """ Enables the use of a a DataArray as if it were a continuous function. Interpolates linearly"""
+        try:
+            x_without_unit = float(x/self.X_unit)
+        except TypeError:
+            raise TypeError("Function argument must have unit '{unit}', not '{given}'".format(unit= unit(self.X_unit), given = unit(x)))
+
+        X_min = min(self.X_without_units)* self.X_unit
+        X_max = max(self.X_without_units)* self.X_unit
+        if x >= X_min and x <= X_max:
+            return np.interp(x_without_unit, self.X_without_units, self.Y_without_units)*self.Y_unit
+        else:
+            raise ValueError("Cannot interpolate DataArray: {x} is not in abscissa range [{min} ; {max}]".format(x = x, min =  str(X_min), max = str(X_max)))
 
 #EOF
