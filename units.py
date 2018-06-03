@@ -211,7 +211,7 @@ class DimensionError(Exception):
 
 def isSympyExpression(test_object): # TODO: very ugly...
     try:
-        a= test_object + sympy.Symbol('1')
+        a = test_object + sympy.Symbol('1')
         return True
     except:
         return False

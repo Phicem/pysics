@@ -1,0 +1,5 @@
+TODO (in addition to TODO's in each .py file):
+
+- prepare packaging for easy installation
+    - python package and wheel file for pip-install (add it to python package index)
+    - packages for commun linux distributions
