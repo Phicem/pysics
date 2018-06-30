@@ -384,6 +384,8 @@ class Quantity(object):
     def get_SI_unit(self):
             return Quantity(1,self.unit)
 
+    def __getitem__(self, key):
+        return Quantity(self.value[key],self.unit, symbol = self.symbol)
 
 # Sub-multiples
 sub_multiple_list = [ {'symbol': 'T', 'value': 1e12},
