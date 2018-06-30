@@ -195,4 +195,64 @@ class DataArray:
         else:
             raise ValueError("Cannot interpolate DataArray: {x} is not in abscissa range [{min} ; {max}]".format(x = x, min =  str(X_min), max = str(X_max)))
 
+    def integ(self, xmin, xmax):
+        """ Return the integral of the array between xmin and xmax with the trapezoidal rule."""
+        min_X = self.X_without_units.min()*self.X_unit
+        max_X = self.X_without_units.max()*self.X_unit
+        if not isInAscendingOrder(self.X_without_units):
+            raise Exception("X array must be sorted by ascending order")
+        if xmin > xmax:
+            raise Exception("xmax must be greater than xmin to avoid ambiguity")
+        if xmin < min_X or xmax > max_X:
+            raise Exception("Integration interval ({xmin},{xmax} should be entirely in the definition interval [{min},{max}]".format(xmin = str(xmin), xmax = str(xmax), min = str(min_X), max = str(max_X)))
+        i = 0
+        while self.X_with_units[i] < xmin:
+            i +=1
+        # reaching first point of integration 
+        X1 = xmin
+        Y1 = self(X1)
+        X2 = self.X_with_units[i]
+        Y2 = self.Y_with_units[i]
+        integral = (Y2+Y1)/2 * (X2-X1)
+        #print("\nPoint {X1},{Y1},{X2},{Y2}, integ = {integral}".format(X1=X1,X2=X2,Y1=Y1,Y2=Y2,integral=integral))
+        i += 1
+        while self.X_with_units[i] < xmax:
+            X1 = self.X_with_units[i-1]
+            Y1 = self.Y_with_units[i-1]
+            X2 = self.X_with_units[i]
+            Y2 = self.Y_with_units[i]
+            integral += (Y2+Y1)/2 * (X2-X1)
+            i += 1
+        # reaching last point of integration
+        X1 = self.X_with_units[i-1]
+        Y1 = self.Y_with_units[i-1]
+        X2 = xmax
+        Y2 = self(X2)
+        integral += (Y2+Y1)/2 * (X2-X1)
+
+        return integral
+
+def sampleFunction(function, xmin, xmax, nb_points = 50):
+    X_array = Quantity(np.linspace(SIValue(xmin), SIValue(xmax), num = nb_points), unit(xmin))
+    Y_array_without_units = np.zeros(nb_points)
+    Y1 = function(X_array[0])
+    Y_unit = unit(Y1)
+    Y_array_without_units[0] = Y1.value
+    for i in range(1, nb_points):
+        result = function(X_array[i])
+        if unit(result) != Y_unit:
+            raise Exception("Function should have the same unit for every value of the input array")
+        Y_array_without_units[i] = SIValue(result)
+
+    X = X_array
+    Y = Quantity(Y_array_without_units, Y_unit)
+    return DataArray(X,Y)
+
+
+def isInAscendingOrder(np_array):
+    """ Return whether a np_array is in ascending order. Useful for IsValid conditions."""
+    dx = np.diff(np_array)
+    return np.all(dx > 0) 
+
+
 #EOF
