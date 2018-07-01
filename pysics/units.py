@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# (C) 2017 Phicem
+# (C) 2018 Phicem
 # This software is released under MIT license (provided in LICENSE.txt)
 
 # TODO: do rad and sr really belong here?
@@ -184,9 +184,9 @@ def turn_to_Quantity(x):
         raise TypeError("Invalid number, cannot turn it to a quantity. A %s is not a real, complex number or numpy array." % type(x))
 
 def unit(quantity_or_float): # it's a function, not a method (to work with usual numbers, and not just Quantities)
-    if isinstance(quantity_or_float,Quantity):
+    try:
         return quantity_or_float.unit
-    else:
+    except:
         return unitless.unit
 
 def SIValue(quantity_or_float):

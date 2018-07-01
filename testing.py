@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
-# (C) 2017 Phicem
+# (C) 2018 Phicem
 # This software is released under MIT license (provided in LICENSE.txt)
-
 
 import math
 import logging
 import unittest
 
 
-from units import *
-from arrays import DataArray, sampleFunction
+from pysics.units import *
+from pysics.arrays import DataArray, sampleFunction
 
 # TODO: use coverage !! ('coverage run ./battery.py' then 'coverage report' then 'coverage html' (open htmlcov/index.html))
 

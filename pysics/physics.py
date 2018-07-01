@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-# (C) 2017 Phicem
+# (C) 2018 Phicem
 # This software is released under MIT license (provided in LICENSE.txt)
 
-from units import *
+
 import scipy.constants
 import numpy as np
+
+from pysics.units import *
 
 # Physical constants
 # TODO: rely on other packages (like scipy) for physical constant values, this file should only add the units

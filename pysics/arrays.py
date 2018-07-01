@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-# (C) 2017 Phicem
+# (C) 2018 Phicem
 # This software is released under MIT license (provided in LICENSE.txt)
 
 
 import numpy as np
-from units import *
+
+from pysics.units import *
 
 
 class DataArray:
@@ -71,7 +72,7 @@ class DataArray:
         self.Y_without_units =  Y_with_units/self.Y_unit
         
         if len(np.shape(self.X_without_units)) != 1 or np.shape(self.X_without_units) != np.shape(self.Y_without_units):
-            raise Exception("Vectors have invalid shapes (%s and %s), they must be 1-D arrays of the same size" % (np.shape(X),np.shape(Y)) )
+            raise Exception("Vectors have invalid shapes (%s and %s), they must be 1-D arrays of the same size" % (np.shape(self.X_without_units),np.shape(self.Y_without_units)) )
 
     def without_units(self,unit_x=None,unit_y=None):
         if unit_x is None and unit_y is None:

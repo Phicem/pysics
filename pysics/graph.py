@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# (C) 2017 Phicem
+# (C) 2018 Phicem
 # This software is released under MIT license (provided in LICENSE.txt)
 
 # TODO: add a smart scale that enables functions like x|--> 1/x to display properly
@@ -40,7 +40,8 @@ import matplotlib.pyplot as plt
 #plt.ioff() # to disable interactive mode
 import numpy as np
 import types
-from arrays import DataArray
+
+from pysics.arrays import DataArray
 
 
 
