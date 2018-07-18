@@ -63,11 +63,46 @@ class TestDataArrays(unittest.TestCase):
         XY = sampleFunction(func, 0*s, 3*s, 4)
         self.assertEqual(XY, self.output_vs_time)
 
+class TestUnits(unittest.TestCase):
+    """ Behaviors to check
+    Item 1
+    Item 2
+    """
+    def setUp(self):
+        pass
+ 
+    def tearDown(self):
+        pass
+
+    def test_010_disp_for_scalar(self):
+        # Regular value, simple unit
+        a = 20*kft
+        mystr1 = a.disp()
+        print(mystr1)
+        self.assertEqual(mystr1, '6.096E+03  m [PHYS]', "Incorrect disp value")
+        mystr2 = a.disp('km')
+        self.assertEqual(mystr2, "6.096 km", "Incorrect disp value")
+
+        #  Regular value, complex unit
+        b = 2*J/s
+        mystr3 = b.disp()
+        self.assertEqual(mystr3, '2.000  kg*m**2/s**3 [PHYS]', "Incorrect disp value")
+        mystr4 = b.disp('W')
+        self.assertEqual(mystr4, '2.000 W', "Incorrect disp value")
+
+        # Incorrect unit
+        c = 2*J
+        with self.assertRaises(Exception):
+            mystr5 = c.disp('W')
+
+        
 
 full_suite_DataArray= unittest.TestLoader().loadTestsFromTestCase(TestDataArrays)
+full_suite_Units = unittest.TestLoader().loadTestsFromTestCase(TestUnits)
 
 TOTAL = unittest.TestSuite()
 TOTAL.addTests(full_suite_DataArray)
+TOTAL.addTests(full_suite_Units)
 
 
 

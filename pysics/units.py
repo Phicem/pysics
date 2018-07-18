@@ -387,6 +387,25 @@ class Quantity(object):
     def __getitem__(self, key):
         return Quantity(self.value[key],self.unit, symbol = self.symbol)
 
+    def disp(self, unit_str=None):
+        """ Another display function that allows unit customization"""
+        if unit_str is None:
+            return self.__repr__()
+        else:
+            unit = eval(unit_str)
+            if not isinstance(unit, Quantity):
+                raise Exception("{unit_str} is not a valid unit string".format(unit_str = unit_str))
+            value = self/unit
+            if isinstance(value, Quantity): # there is a residual unit
+                raise Exception("{unit_str} is not the right unit for {self}".format(unit_str = unit_str, self = self))
+            else:
+                if isinstance(value, np.ndarray):
+                    return str(value) +  " " + unit_str
+                else:
+                    return displayNumber(value) + " " + unit_str
+
+
+
 # Sub-multiples
 sub_multiple_list = [ {'symbol': 'T', 'value': 1e12},
                       {'symbol': 'G', 'value': 1e9},
@@ -449,3 +468,4 @@ ft = 0.3048*m
 NM = 1.852*km
 yard = 0.9144*m
 inch = 2.54*cm # not 'in' because it is a reserved word in python
+kft = 1000*ft
