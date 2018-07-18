@@ -238,7 +238,7 @@ def sampleFunction(function, xmin, xmax, nb_points = 50):
     Y_array_without_units = np.zeros(nb_points)
     Y1 = function(X_array[0])
     Y_unit = unit(Y1)
-    Y_array_without_units[0] = Y1.value
+    Y_array_without_units[0] = SIValue(Y1)
     for i in range(1, nb_points):
         result = function(X_array[i])
         if unit(result) != Y_unit:
