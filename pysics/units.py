@@ -49,7 +49,7 @@ Getting units and value:
 
 Defining new units:
     >> kJ = 1000*J
-    >> Ec / KJ
+    >> Ec / kJ
         0.5
 
 Playing with numpy arrays:
