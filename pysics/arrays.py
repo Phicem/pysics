@@ -70,6 +70,9 @@ class DataArray:
         self.Y_unit = Quantity(1,unit(Y_with_units))
         self.X_without_units = X_with_units/self.X_unit
         self.Y_without_units =  Y_with_units/self.Y_unit
+
+        if not isInAscendingOrder(self.X_without_units):
+            raise Exception("X vector must be in ascending order")
         
         if len(np.shape(self.X_without_units)) != 1 or np.shape(self.X_without_units) != np.shape(self.Y_without_units):
             raise Exception("Vectors have invalid shapes (%s and %s), they must be 1-D arrays of the same size" % (np.shape(self.X_without_units),np.shape(self.Y_without_units)) )

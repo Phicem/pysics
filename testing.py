@@ -63,6 +63,17 @@ class TestDataArrays(unittest.TestCase):
         XY = sampleFunction(func, 0*s, 3*s, 4)
         self.assertEqual(XY, self.output_vs_time)
 
+    def test_001_not_ascending_order(self):
+        revert = np.array([1,2,3,0])
+
+        with self.assertRaises(Exception):
+            DataArray(revert, revert)
+        with self.assertRaises(Exception):
+            DataArray(revert, revert*m)
+        with self.assertRaises(Exception):
+            DataArray(revert*m, revert)
+
+
 class TestUnits(unittest.TestCase):
     """ Behaviors to check
     Item 1
@@ -78,7 +89,7 @@ class TestUnits(unittest.TestCase):
         # Regular value, simple unit
         a = 20*kft
         mystr1 = a.disp()
-        print(mystr1)
+        #print(mystr1)
         self.assertEqual(mystr1, '6.096E+03  m [PHYS]', "Incorrect disp value")
         mystr2 = a.disp('km')
         self.assertEqual(mystr2, "6.096 km", "Incorrect disp value")
