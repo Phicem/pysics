@@ -109,7 +109,8 @@ class DataArray:
         x_min = max(min(X1),min(X2))
         x_max = min(max(X1),max(X2))
         x_step = min( min(np.diff(X1)), min(np.diff(X2)))
-        new_x = np.arange(x_min, x_max + x_step, x_step)
+        #new_x = np.arange(x_min, x_max + x_step, x_step)
+        new_x = np.linspace( start = x_xmin, stop = x_max, num = int( (x_max-x_min)/x_step ) +1 )
         self.new_x_with_units = new_x * self.X_unit
         # interpolate
         self.new_self_Y_with_units = np.interp(new_x, X1, Y1)* self.Y_unit
