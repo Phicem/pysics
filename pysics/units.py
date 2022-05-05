@@ -174,6 +174,25 @@ class Dimension(object):
         else:
             raise TypeError("The power of a physical quantity must be a real number (not a %s)." % type(y))
 
+def factorize_units(array):
+    """ Turn a np array of quantities into a single quantity which value is an array of numbers. [ 1*m, 2*m ] --> [ 1, 2 ] * m
+    """
+    if isinstance(array, np.ndarray) and isinstance(array[0], Quantity):
+        first_index = tuple([0]*array.ndim) # handles arrays with any number of dimensions
+        ref_value = array[first_index] # value used to guess the final unit
+        ref_unit = Quantity(1, ref_value.unit)
+        def div(a):
+            return a/ref_unit
+        div2 = np.vectorize(div)
+        try:
+            res = div2(array)
+        except ValueError:
+            raise Exception("Cannot group units. Check that every value of the array has the same unit (" + str(unit(ref_unit)) + ") in:\n" + str(array)) from None
+        return res*ref_unit
+    else:
+        return array
+
+
 def turn_to_Quantity(x):
     """ Turn a number to a (unitless) quantity. If the argument is a quantity, returns it unchanged."""
     if isinstance(x,Quantity):
