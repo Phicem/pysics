@@ -255,7 +255,7 @@ def sampleFunction(function, xmin, xmax, nb_points = 50):
 
 
 def isInAscendingOrder(np_array):
-    """ Return whether a np_array is in ascending order. Useful for IsValid conditions."""
+    """ Return whether a np_array is in ascending order."""
     dx = np.diff(np_array)
     return np.all(dx > 0) 
 
