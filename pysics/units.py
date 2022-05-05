@@ -387,6 +387,13 @@ class Quantity(object):
     def __getitem__(self, key):
         return Quantity(self.value[key],self.unit, symbol = self.symbol)
 
+    def __len__(self):
+        try:
+            return len(self.value)
+        except Exception as e:
+            raise e
+                    
+
     def disp(self, unit_str=None):
         """ Another display function that allows unit customization"""
         if unit_str is None:
