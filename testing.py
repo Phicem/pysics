@@ -106,6 +106,10 @@ class TestUnits(unittest.TestCase):
         with self.assertRaises(Exception):
             mystr5 = c.disp('W')
 
+    def test_020_automatic_factorize_units(self):
+        A = np.array([1*m, 2*m])
+        B = np.array([2, 3])*m
+        self.assertIsNone(np.testing.assert_array_equal(A+1*m, B))
         
 
 full_suite_DataArray= unittest.TestLoader().loadTestsFromTestCase(TestDataArrays)

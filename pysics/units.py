@@ -194,11 +194,20 @@ def factorize_units(array):
 
 
 def turn_to_Quantity(x):
-    """ Turn a number to a (unitless) quantity. If the argument is a quantity, returns it unchanged."""
+    """ Turn a number to a (unitless) quantity. 
+    Turn a np array of quantities into a single quantity which value is an array of numbers. [ 1*m, 2*m ] --> [ 1, 2 ] * m
+    If the argument is already a quantity, return it unchanged.
+    """
     if isinstance(x,Quantity):
         return x
-    elif isinstance(x, np.ndarray) or np.isreal(x) or np.iscomplex(x):
+    elif isinstance(x, np.ndarray):
+        first_index = tuple([0]*x.ndim) # handles arrays with any number of dimensions
+        if isinstance(x[first_index], Quantity):
+            return factorize_units(x) # so that a command like "np.array([1*m, 2*m]) + 2*m" can work
+        else:
             return Quantity(x,Dimension(None), symbol = '<number>')
+    elif np.isreal(x) or np.iscomplex(x):
+        return Quantity(x,Dimension(None), symbol = '<number>')
     else:
         raise TypeError("Invalid number, cannot turn it to a quantity. A %s is not a real, complex number or numpy array." % type(x))
 
