@@ -200,6 +200,8 @@ def turn_to_Quantity(x):
     """
     if isinstance(x,Quantity):
         return x
+    elif isinstance(x, list):
+        return Quantity(np.asarray(x),Dimension(None), symbol = '<number>')
     elif isinstance(x, np.ndarray):
         first_index = tuple([0]*x.ndim) # handles arrays with any number of dimensions
         if isinstance(x[first_index], Quantity):

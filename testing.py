@@ -112,6 +112,12 @@ class TestUnits(unittest.TestCase):
         B = np.array([2, 3])*m
         self.assertIsNone(np.testing.assert_array_equal(A+1*m, B))
 
+    def test_030_init_from_list(self):
+        A = [1, 2]*m
+        B = np.array([1*m, 2*m])
+        self.assertIsNone(np.testing.assert_array_equal(A, B))
+
+
 
 class TestIntegrate(unittest.TestCase):
     """ Behaviors to check
