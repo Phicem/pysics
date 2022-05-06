@@ -9,6 +9,7 @@ import unittest
 
 
 from pysics.units import *
+from pysics.integrate import integ
 from pysics.arrays import DataArray, sampleFunction
 
 # TODO: use coverage !! ('coverage run ./battery.py' then 'coverage report' then 'coverage html' (open htmlcov/index.html))
@@ -110,24 +111,50 @@ class TestUnits(unittest.TestCase):
         A = np.array([1*m, 2*m])
         B = np.array([2, 3])*m
         self.assertIsNone(np.testing.assert_array_equal(A+1*m, B))
+
+
+class TestIntegrate(unittest.TestCase):
+    """ Behaviors to check
+    Item 1
+    Item 2
+    """
+    def setUp(self):
+        pass
+ 
+    def tearDown(self):
+        pass
+
+    def test_010_integrate_with_units(self):
+        def func(x): 
+            return x**2
+
+        a = 0.1*m
+        b = 13*m
+        I = integ(func, a, b)
+        I_expected = (b**3-a**3)/3
+        self.assertAlmostEqual(I, I_expected, delta = 10**-8*m**3)
+        
+    def test_011_integrate_no_unit(self):
+        def func(x): 
+            return 1/x
+
+        a = 0.1
+        b = 13
+        I = integ(func, a, b)
+        I_expected = np.log(b) - np.log(a)
+        self.assertAlmostEqual(I, I_expected)
+                
         
 
 full_suite_DataArray= unittest.TestLoader().loadTestsFromTestCase(TestDataArrays)
 full_suite_Units = unittest.TestLoader().loadTestsFromTestCase(TestUnits)
+full_suite_Integrate = unittest.TestLoader().loadTestsFromTestCase(TestIntegrate)
 
 TOTAL = unittest.TestSuite()
 TOTAL.addTests(full_suite_DataArray)
 TOTAL.addTests(full_suite_Units)
+TOTAL.addTests(full_suite_Integrate)
 
-
-
-#list_of_tests = ['test_013_integ_array_without_units'] 
-#partial_suite = unittest.TestSuite(map(TestDataArrays, list_of_tests))
-
-#suite = partial_suite
 suite = TOTAL 
 
 unittest.TextTestRunner(verbosity=2).run(suite)
-
-#pdb.set_trace()
-#print("End of tests")
