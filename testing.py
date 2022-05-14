@@ -118,6 +118,19 @@ class TestUnits(unittest.TestCase):
         self.assertIsNone(np.testing.assert_array_equal(A, B))
 
 
+    def test_040_vectorized_function(self):
+        D = [1, 2, 20, 30]*m
+        def myfunc(d):
+            if d > 15*m:
+                return d+5*m
+            else:
+                return 0*m
+
+        myfunc_vect = np.vectorize(myfunc)
+        out = myfunc_vect(D)
+        out_expected = [0, 0, 25, 35]*m
+        self.assertIsNone(np.testing.assert_array_equal(out, out_expected))
+
 
 class TestIntegrate(unittest.TestCase):
     """ Behaviors to check
