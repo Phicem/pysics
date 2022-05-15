@@ -1,0 +1,8 @@
+#theme: jekyll-theme-cayman
+theme: minima
+header_pages:
+  - MainPage.md
+  - Units.md
+  - Graph.md
+  - Arrays.md
+  - Physics.md

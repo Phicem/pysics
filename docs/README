@@ -1,0 +1,3 @@
+This directory contains the source code for the documentation web pages.
+
+The documentation is written in markdown and rendered by jekyll. It can be read offline (by using jekyll to render the website), or online on https://phicem.github.io/pysics (thanks to Github Pages)
