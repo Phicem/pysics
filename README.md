@@ -2,8 +2,7 @@
 
 ## WHAT IS IT?
 
-PYSICS is a set of python tools that might be useful for engineers or physicists.
-It is composed of several python modules:
+PYSICS is a set of python tools that might be useful for engineers or physicists. It is composed of several python modules:
 
 - units.py: a basic implementation of physical units (with numpy support)
 
@@ -18,8 +17,7 @@ For more detailed information on what PYSICS can offer, please read the [documen
 
 ## HOW DO I INSTALL IT
 
-You don't install it for now, you just download and put the .py files where you 
-want to use them.
+You don't install it for now, you just download and put the .py files where you want to use them.
 
 You will also need the following packages:
 - python 3
@@ -32,8 +30,7 @@ You will also need the following packages:
 
 ## HOW DO I USE IT
 
-The wiki contains detailed examples of use. You can also find some examples of 
-use in the modules docstrings of each file.
+The [documentation](https://phicem.github.io/pysics) contains detailed examples of use. You can also find some examples of use in the modules docstrings of each file.
 
 
 
